@@ -19,7 +19,6 @@ class BookCategory
     #[ORM\Column(type: 'string', length: 255)]
     private string $slug;
 
-
     public function getId(): ?int
     {
         return $this->id;

@@ -6,8 +6,7 @@ use Tests\Support\ApiTester;
 
 class CreateUserCest
 {
-    public function GetCategories(ApiTester $I)
-
+    public function getCategories(ApiTester $I)
     {
 
         $I->sendGet('/categories');
@@ -17,8 +16,7 @@ class CreateUserCest
 
     }
 
-    public function UpdateCategory(ApiTester $I)
-
+    public function updateCategory(ApiTester $I)
     {
 
         $I->sendPut('/categories/2', json_encode([
@@ -30,8 +28,7 @@ class CreateUserCest
 
     }
 
-    public function GetCategoriesAfterUpdate(ApiTester $I)
-
+    public function getCategoriesAfterUpdate(ApiTester $I)
     {
 
         $I->sendGet('/categories');
@@ -43,11 +40,9 @@ class CreateUserCest
         $data = json_decode($response, true);
         $I->seeResponseContainsJson($data);
 
-
     }
 
-    public function DeleteCategoryById(ApiTester $I): void
-
+    public function deleteCategoryById(ApiTester $I): void
     {
 
         $I->sendDelete('/categories/1');
@@ -57,8 +52,7 @@ class CreateUserCest
 
     }
 
-    public function GetCategoriesAfterDelete(ApiTester $I)
-
+    public function getCategoriesAfterDelete(ApiTester $I)
     {
 
         $I->sendGet('/categories');
@@ -70,26 +64,22 @@ class CreateUserCest
         $data = json_decode($response, true);
         $I->seeResponseContainsJson($data);
 
-
     }
-    public function RemovingCategoryNonExistentId(ApiTester $I): void
-
+    public function removingCategoryNonExistentId(ApiTester $I): void
     {
 
         $I->sendDelete('/categories/999');
         $I->seeResponseCodeIs(404);
 
-
     }
 
-    public function DeleteCategoryInvalidId(ApiTester $I): void
+    public function deleteCategoryInvalidId(ApiTester $I): void
     {
 
         $I->sendDelete('/categories/Pushkin');
 
         $I->seeResponseCodeIs(400);
         $I->seeResponseContainsJson(['error' => 'Invalid ID format: ID must be numeric']);
-
 
     }
 

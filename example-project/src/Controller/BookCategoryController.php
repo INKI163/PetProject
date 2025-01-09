@@ -69,4 +69,5 @@ class BookCategoryController extends AbstractController
 
         return $this->json(['message' => 'Category deleted successfully']);
     }
+
 }
