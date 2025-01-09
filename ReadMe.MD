@@ -1,12 +1,30 @@
 Чтобы запустить проект, нужно:
 1. Запустить Docker
 2. Открыть файл docker-compose.yaml находящийся в папке example-project. Найти раздел services и слева от него запустить БД
-3. Удалить старую миграцию composer remove doctrine/doctrine-migrations-bundle
-4. Установить миграцию composer require doctrine/doctrine-migrations-bundle
-5. Выполнить две команда для миграции  1.(php bin/console make:migration) 2.(php bin/console doctrine:migrations:migrate)
-3. Находясь в каталоге example-project устанавливаем зависимостей composer require symfony/serializer-pack
-5. Запускаем локальный-сервер командой symfony serve
-6. Заходим в браузер и вводим в адресную-строку http://localhost:8000/categories
-9. Переходим в каталог PetProject
-10. Запускаем автотесты командой php vendor/bin/codecept run Api --debug
-11. Проверяем изменение в БД (book_category), а так же можно проверить на локальном сервере
+3. Создайте файл .env.local с помощью symfony var:export --multiline > .env.local
+4. Пропишите в файл из третьего пункта
+   export DATABASE_DATABASE=postgres
+   export DATABASE_DRIVER=postgres
+   export DATABASE_HOST=127.0.0.1
+   export DATABASE_NAME=postgres
+   export DATABASE_PASSWORD=12345
+   export DATABASE_PORT=5432
+   export DATABASE_SERVER=postgres://127.0.0.1:5432
+   export DATABASE_URL=postgres://postgres:12345@127.0.0.1:5432/postgres?sslmode=disable&charset=utf8
+   export DATABASE_USER=postgres
+   export DATABASE_USERNAME=postgres
+   export PGDATABASE=postgres
+   export PGHOST=127.0.0.1
+   export PGPASSWORD=12345
+   export PGPORT=5432
+   export PGUSER=postgres
+
+5. Удалить старую миграцию composer remove doctrine/doctrine-migrations-bundle
+6. Установить миграцию composer require doctrine/doctrine-migrations-bundle
+7. Выполнить две команда для миграции  1.(php bin/console make:migration) 2.(php bin/console doctrine:migrations:migrate)
+8. Находясь в каталоге example-project устанавливаем зависимостей composer require symfony/serializer-pack
+9. Запускаем локальный-сервер командой symfony serve
+10. Заходим в браузер и вводим в адресную-строку http://localhost:8000/categories
+11. Переходим в каталог PetProject
+12. Запускаем автотесты командой php vendor/bin/codecept run Api --debug
+13. Проверяем изменение в БД (book_category), а так же можно проверить на локальном сервере
