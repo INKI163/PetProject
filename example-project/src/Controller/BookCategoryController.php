@@ -21,6 +21,7 @@ class BookCategoryController extends AbstractController
         $this->bookCategoryService = $bookCategoryService;
 
     }
+
     #[Route('/categories', methods: ['GET'])]
     public function getCategories(): JsonResponse
     {
@@ -57,7 +58,7 @@ class BookCategoryController extends AbstractController
 
         }
 
-        $id = (int) $id;
+        $id = (int)$id;
 
         $success = $this->bookCategoryService->deleteCategory($id);
 

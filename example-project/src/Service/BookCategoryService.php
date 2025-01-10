@@ -20,12 +20,13 @@ class BookCategoryService
         $this->entityManager = $entityManager;
 
     }
+
     public function getCategories(): BookCategoryListResponse
     {
 
-        $categories=$this->bookCategoryRepository->findBy([], ['title'=> Criteria::ASC]);
+        $categories = $this->bookCategoryRepository->findBy([], ['title' => Criteria::ASC]);
         $items = array_map(
-            fn (BookCategory $bookCategory) => new BookCategoryListItem(
+            fn(BookCategory $bookCategory) => new BookCategoryListItem(
 
                 $bookCategory->getId(),
                 $bookCategory->getTitle(),

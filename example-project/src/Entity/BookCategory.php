@@ -10,10 +10,10 @@ class BookCategory
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type:'integer')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type:'string',length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $title = null;
 
     #[ORM\Column(type: 'string', length: 255)]

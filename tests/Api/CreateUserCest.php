@@ -65,6 +65,7 @@ class CreateUserCest
         $I->seeResponseContainsJson($data);
 
     }
+
     public function removingCategoryNonExistentId(ApiTester $I): void
     {
 
