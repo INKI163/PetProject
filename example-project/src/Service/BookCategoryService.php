@@ -16,14 +16,11 @@ class BookCategoryService
 
     public function __construct(private BookCategoryRepository $bookCategoryRepository, EntityManagerInterface $entityManager)
     {
-
         $this->entityManager = $entityManager;
-
     }
 
     public function getCategories(): BookCategoryListResponse
     {
-
         $categories = $this->bookCategoryRepository->findBy([], ['title' => Criteria::ASC]);
         $items = array_map(
             fn(BookCategory $bookCategory) => new BookCategoryListItem(
@@ -31,7 +28,6 @@ class BookCategoryService
                 $bookCategory->getId(),
                 $bookCategory->getTitle(),
                 $bookCategory->getSlug()
-
             ),
 
             $categories
@@ -39,7 +35,6 @@ class BookCategoryService
         );
 
         return new BookCategoryListResponse($items);
-
     }
 
     public function updateCategory(int $id, array $data): ?BookCategory
@@ -83,6 +78,17 @@ class BookCategoryService
         $this->entityManager->flush();
 
         return true;
+    }
+    public function updateAllCategory(string $title, string $slug): BookCategory
+    {
+        $category = new BookCategory();
+        $category->setId(1);
+        $category->setTitle($title);
+        $category->setSlug($slug);
 
+        $this->entityManager->persist($category);
+        $this->entityManager->flush();
+
+        return $category;
     }
 }

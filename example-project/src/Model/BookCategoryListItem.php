@@ -36,5 +36,4 @@ class BookCategoryListItem
     {
         return $this->title;
     }
-
 }

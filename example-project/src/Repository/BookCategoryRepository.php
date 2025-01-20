@@ -16,5 +16,4 @@ class BookCategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, BookCategory::class);
     }
-
 }

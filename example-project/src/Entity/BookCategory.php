@@ -9,12 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 class BookCategory
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $title = null;
+    private string $title;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $slug;
@@ -23,6 +22,13 @@ class BookCategory
     {
         return $this->id;
     }
+
+    public function setId(?int $id): BookCategory
+    {
+        $this->id = $id;
+        return $this;
+    }
+
 
     public function getTitle(): ?string
     {
@@ -46,5 +52,4 @@ class BookCategory
         $this->slug = $slug;
         return $this;
     }
-
 }

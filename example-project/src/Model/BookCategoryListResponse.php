@@ -9,7 +9,6 @@ class BookCategoryListResponse
      * @var BookCategoryListItem[]
      */
     private array $items;
-
     /**
      * @param BookCategoryListItem[] $items
      */
@@ -25,5 +24,4 @@ class BookCategoryListResponse
     {
         return $this->items;
     }
-
 }

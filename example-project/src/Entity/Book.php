@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Book
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'NONE')]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
@@ -32,5 +32,4 @@ class Book
 
         return $this;
     }
-
 }
