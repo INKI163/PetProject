@@ -79,10 +79,10 @@ class BookCategoryService
 
         return true;
     }
-    public function updateAllCategory(string $title, string $slug): BookCategory
+    public function createNewCategory(int $id, string $title, string $slug): BookCategory
     {
         $category = new BookCategory();
-        $category->setId(1);
+        $category->setId($id);
         $category->setTitle($title);
         $category->setSlug($slug);
 

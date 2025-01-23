@@ -67,11 +67,11 @@ class BookCategoryController extends AbstractController
     }
 
     #[Route('URL_CATEGORIES', methods: ['POST'])]
-    public function updateAllCategory(Request $request): JsonResponse
+    public function createNewCategory(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
-        $category = $this->bookCategoryService->updateAllCategory($data['title'], $data['slug']);
+        $category = $this->bookCategoryService->createNewCategory($data['id'], $data['title'], $data['slug']);
 
         return $this->json([
             'id' => $category->getId(),

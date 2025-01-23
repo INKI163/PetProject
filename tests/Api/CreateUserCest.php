@@ -2,12 +2,14 @@
 
 namespace Api;
 
+
+use Exception;
 use Tests\Support\ApiTester;
 use Support\Helper\UrlHelper;
 
 class CreateUserCest
 {
-    public function updateAllCategories(ApiTester $I)
+    public function createNewCategory(ApiTester $I): void
     {
         $data = [
             'id' => 1,
@@ -21,7 +23,7 @@ class CreateUserCest
         $I->seeResponseCodeIs(201);
     }
 
-    public function getCategories(ApiTester $I)
+    public function getCategories(ApiTester $I): void
     {
         $I->sendGet('URL_CATEGORIES');
 
@@ -29,7 +31,7 @@ class CreateUserCest
         $I->seeResponseIsJson();
     }
 
-    public function updateCategory(ApiTester $I)
+    public function updateCategory(ApiTester $I) : void
     {
         $I->sendPut('URL_CATEGORIES/2', json_encode([
             'title' => 'Dostoevsky',
@@ -39,7 +41,7 @@ class CreateUserCest
         $I->seeResponseCodeIs(200);
     }
 
-    public function getCategoriesAfterUpdate(ApiTester $I)
+    public function getCategoriesAfterUpdate(ApiTester $I): void
     {
         $I->sendGet('URL_CATEGORIES');
 
@@ -51,15 +53,25 @@ class CreateUserCest
         $I->seeResponseContainsJson($data);
     }
 
+    /**
+     * @throws Exception
+     */
     public function deleteCategoryById(ApiTester $I): void
     {
-        $I->sendDelete('URL_CATEGORIES/1');
+        $I->sendPost("URL_CATEGORIES", json_encode([
+            'id' => 999,
+            'title' => 'Dostoevsky',
+            'slug' => 'FQ'
+        ]));
+        $id = $I->grabDataFromResponseByJsonPath('$.id');
+
+        $I->sendDelete('URL_CATEGORIES/' . $id[0]);
 
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['message' => 'Category deleted successfully']);
     }
 
-    public function getCategoriesAfterDelete(ApiTester $I)
+    public function getCategoriesAfterDelete(ApiTester $I): void
     {
         $I->sendGet('URL_CATEGORIES');
 

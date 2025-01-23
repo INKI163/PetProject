@@ -1,7 +1,7 @@
 Чтобы запустить проект, нужно:
 1. Запустить Docker
 2. Открыть файл docker-compose.yaml находящийся в папке example-project. Найти раздел services и слева от него запустить БД
-3. Создайте файл .env.local с помощью symfony var:export --multiline > .env.local
+3. Создайте файл в папке example-project .env.local с помощью symfony var:export --multiline > .env.local
 4. Пропишите в файл из третьего пункта
    export DATABASE_DATABASE=postgres
    export DATABASE_DRIVER=postgres
