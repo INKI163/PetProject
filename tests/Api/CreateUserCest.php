@@ -3,36 +3,31 @@
 namespace Api;
 
 
+use App\Service\BookCategoryService;
 use Exception;
 use Tests\Support\ApiTester;
 use Support\Helper\UrlHelper;
+require_once __DIR__ . '/../Support/Helper/MethodsHelper.php';
+use Support\Helper\MethodsHelper;
 
 class CreateUserCest
 {
-    private int $createCategory;
+    private int $createdCategory;
+    private MethodsHelper $methodsHelper;
+
     /**
      * @throws Exception
      */
     public function _before(ApiTester $I): void
     {
-        $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('URL_CATEGORIES',json_encode([
-            'id' => 55,
-            'title' => 'Pushkin',
-            'slug' => 'FQ'
-        ]));
+        $this->methodsHelper = new MethodsHelper();
 
-        $this->createdCategory = $I->grabDataFromResponseByJsonPath('$.id')[0];
+        $this->createdCategory = $this->methodsHelper->createNewCategory($I);
     }
 
     public function _after(ApiTester $I): void
     {
         $I->sendDelete('URL_CATEGORIES/' . $this->createdCategory);
-    }
-
-    public function createNewCategory(ApiTester $I): void
-    {
-        $I->seeResponseCodeIs(201);
     }
 
     /**
@@ -101,7 +96,3 @@ class CreateUserCest
         $I->seeResponseContainsJson(['error' => 'Invalid ID format: ID must be numeric']);
     }
 }
-
-
-
-
