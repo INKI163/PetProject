@@ -9,41 +9,38 @@ use Support\Helper\UrlHelper;
 
 class CreateUserCest
 {
-    public function createNewCategory(ApiTester $I): void
+    private int $createCategory;
+    /**
+     * @throws Exception
+     */
+    public function _before(ApiTester $I): void
     {
-        $data = [
-            'id' => 1,
-            'title' => 'Cat',
-            'slug' => 'Dostoevsky',
-        ];
-
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('URL_CATEGORIES', $data);
-
-        $I->seeResponseCodeIs(201);
-    }
-
-    public function getCategories(ApiTester $I): void
-    {
-        $I->sendGet('URL_CATEGORIES');
-
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-    }
-
-    public function updateCategory(ApiTester $I) : void
-    {
-        $I->sendPut('URL_CATEGORIES/2', json_encode([
-            'title' => 'Dostoevsky',
+        $I->sendPost('URL_CATEGORIES',json_encode([
+            'id' => 55,
+            'title' => 'Pushkin',
             'slug' => 'FQ'
         ]));
 
-        $I->seeResponseCodeIs(200);
+        $this->createdCategory = $I->grabDataFromResponseByJsonPath('$.id')[0];
     }
 
-    public function getCategoriesAfterUpdate(ApiTester $I): void
+    public function _after(ApiTester $I): void
     {
-        $I->sendGet('URL_CATEGORIES');
+        $I->sendDelete('URL_CATEGORIES/' . $this->createdCategory);
+    }
+
+    public function createNewCategory(ApiTester $I): void
+    {
+        $I->seeResponseCodeIs(201);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getCategories(ApiTester $I): void
+    {
+        $I->sendGet('URL_CATEGORIES/' . $this->createdCategory);
 
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -56,31 +53,38 @@ class CreateUserCest
     /**
      * @throws Exception
      */
+    public function updateCategory(ApiTester $I): void
+    {
+        $I->sendPut('URL_CATEGORIES/' . $this->createdCategory, json_encode([
+            'title' => 'Not Dostoevsky',
+            'slug' => 'Not FQ'
+        ]));
+
+        $I->seeResponseCodeIs(200);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function updateCategoryWithNotFoundCategories(ApiTester $I): void
+    {
+        $I->sendPut('URL_CATEG/' . $this->createdCategory, json_encode([
+            'title' => 'Not Dostoevsky',
+            'slug' => 'Not FQ'
+        ]));
+
+        $I->seeResponseCodeIs(404);
+    }
+
+    /**
+     * @throws Exception
+     */
     public function deleteCategoryById(ApiTester $I): void
     {
-        $I->sendPost("URL_CATEGORIES", json_encode([
-            'id' => 999,
-            'title' => 'Dostoevsky',
-            'slug' => 'FQ'
-        ]));
-        $id = $I->grabDataFromResponseByJsonPath('$.id');
-
-        $I->sendDelete('URL_CATEGORIES/' . $id[0]);
+        $I->sendDelete('URL_CATEGORIES/' . $this->createdCategory);
 
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['message' => 'Category deleted successfully']);
-    }
-
-    public function getCategoriesAfterDelete(ApiTester $I): void
-    {
-        $I->sendGet('URL_CATEGORIES');
-
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-
-        $response = $I->grabResponse();
-        $data = json_decode($response, true);
-        $I->seeResponseContainsJson($data);
     }
 
     public function removingCategoryNonExistentId(ApiTester $I): void

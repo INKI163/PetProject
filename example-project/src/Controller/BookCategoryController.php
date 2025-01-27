@@ -29,6 +29,14 @@ class BookCategoryController extends AbstractController
         return $this->json($categories);
     }
 
+    #[Route('URL_CATEGORIES/{id}', methods: ['GET'])]
+    public function getCategoriesById(): JsonResponse
+    {
+        $categories = $this->bookCategoryService->getCategories();
+
+        return $this->json($categories);
+    }
+
     #[Route('URL_CATEGORIES/{id}', methods: ['PUT'])]
     public function updateCategory(int $id, Request $request): JsonResponse
     {
