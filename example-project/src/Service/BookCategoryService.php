@@ -41,7 +41,6 @@ class BookCategoryService
     {
         $category = $this->bookCategoryRepository->find($id);
 
-
         if ($category === null) {
 
             return null;

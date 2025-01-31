@@ -21,12 +21,16 @@ class BookCategoryController extends AbstractController
         $this->bookCategoryService = $bookCategoryService;
     }
 
-    #[Route('URL_CATEGORIES', methods: ['GET'])]
-    public function getCategories(): JsonResponse
+    #[Route('URL_CATEGORIES/{id}', methods: ['GET'])]
+    public function getCategory(int $id): JsonResponse
     {
-        $categories = $this->bookCategoryService->getCategories();
+        $category = $this->bookCategoryService->getCategoriesById($id);
 
-        return $this->json($categories);
+        if (!$category) {
+            return $this->json(['error' => 'Category not found'], 404);
+        }
+
+        return $this->json($category);
     }
 
     #[Route('URL_CATEGORIES/{id}', methods: ['GET'])]
@@ -42,18 +46,12 @@ class BookCategoryController extends AbstractController
         return $this->json($categories);
     }
 
-    #[Route('URL_CATEGORIES/{id}', methods: ['GET'])]
-    public function getCategory(int $id): JsonResponse
+    #[Route('URL_CATEGORIES', methods: ['GET'])]
+    public function getCategories(): JsonResponse
     {
-        $category = $this->bookCategoryService->getCategoriesById($id);
+        $categories = $this->bookCategoryService->getCategories();
 
-        if ($category === null) {
-
-            return $this->json(404);
-
-        }
-
-        return $this->json($category);
+        return $this->json($categories);
     }
 
     #[Route('URL_CATEGORIES/{id}', methods: ['PUT'])]

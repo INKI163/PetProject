@@ -3,3 +3,13 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+category_show:
+    path: /categories/{id}
+    controller: App\Controller\CategoryController::show
+    methods: GET
+
+category_index:
+    path: /categories
+    controller: App\Controller\CategoryController::index
+    methods: GET
