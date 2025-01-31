@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Tests\Support;
+use PHPUnit\Framework\Assert;
 
 /**
  * Inherited Methods
@@ -16,14 +17,25 @@ namespace Tests\Support;
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
  * @method void pause($vars = [])
+
  *
  * @SuppressWarnings(PHPMD)
 */
 class ApiTester extends \Codeception\Actor
 {
     use _generated\ApiTesterActions;
+    public function assertIsArray(string $value): void
+    {
+        Assert::assertIsArray($value);
+    }
 
-    /**
-     * Define custom actions here
-     */
+    public function assertIsString(string $value): void
+    {
+        Assert::assertIsString($value);
+    }
+
+    public function assertIsInt(mixed $id): void
+    {
+        Assert::assertIsInt($id);
+    }
 }

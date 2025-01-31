@@ -30,11 +30,30 @@ class BookCategoryController extends AbstractController
     }
 
     #[Route('URL_CATEGORIES/{id}', methods: ['GET'])]
-    public function getCategoriesById(): JsonResponse
+    public function getCategoriesById(string $id): JsonResponse
     {
+        if (!ctype_digit($id)) {
+
+            return $this->json(['error' => 'Invalid ID format: ID must be numeric'], 400);
+
+        }
         $categories = $this->bookCategoryService->getCategories();
 
         return $this->json($categories);
+    }
+
+    #[Route('URL_CATEGORIES/{id}', methods: ['GET'])]
+    public function getCategory(int $id): JsonResponse
+    {
+        $category = $this->bookCategoryService->getCategoriesById($id);
+
+        if ($category === null) {
+
+            return $this->json(404);
+
+        }
+
+        return $this->json($category);
     }
 
     #[Route('URL_CATEGORIES/{id}', methods: ['PUT'])]

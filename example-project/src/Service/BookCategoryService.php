@@ -21,7 +21,7 @@ class BookCategoryService
 
     public function getCategories(): BookCategoryListResponse
     {
-        $categories = $this->bookCategoryRepository->findBy([], ['title' => Criteria::ASC]);
+        $categories = $this->bookCategoryRepository->findBy([]);
         $items = array_map(
             fn(BookCategory $bookCategory) => new BookCategoryListItem(
 
@@ -35,6 +35,24 @@ class BookCategoryService
         );
 
         return new BookCategoryListResponse($items);
+    }
+
+    public function getCategoriesById(int $id): ?array
+    {
+        $category = $this->bookCategoryRepository->find($id);
+
+
+        if ($category === null) {
+
+            return null;
+
+        }
+
+        return [
+            'id' => $category->getId(),
+            'title' => $category->getTitle(),
+            'slug' => $category->getSlug()
+        ];
     }
 
     public function updateCategory(int $id, array $data): ?BookCategory

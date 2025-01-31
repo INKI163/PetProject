@@ -2,15 +2,16 @@
 
 namespace Api;
 
-
 use App\Service\BookCategoryService;
+use Codeception\Template\Api;
 use Exception;
 use Tests\Support\ApiTester;
 use Support\Helper\UrlHelper;
 require_once __DIR__ . '/../Support/Helper/CategoryHelper.php';
 use Support\Helper\CategoryHelper;
+use function PHPUnit\Framework\assertIsArray;
 
-class CreateUserCest
+class BooksContractCest
 {
     private int $createdCategory;
     private CategoryHelper $categoryHelper;
@@ -33,27 +34,54 @@ class CreateUserCest
     /**
      * @throws Exception
      */
-    public function getCategories(ApiTester $I): void
+    public function checkCreateNewCategory(ApiTester $I): void
     {
         $I->sendGet('URL_CATEGORIES/' . $this->createdCategory);
 
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
+    }
 
-        $response = $I->grabResponse();
-        $data = json_decode($response, true);
-        $I->seeResponseContainsJson($data);
+    public function getCategoryNotFoundId(ApiTester $I): void
+    {
+        $I->sendGet('URL_CATEGORIES/Pushkin');
+
+        $I->seeResponseCodeIs(400);
+    }
+
+    public function getCategoriesByNonExistentUrl(ApiTester $I): void
+    {
+        $I->sendGet('URL_');
+
+        $I->seeResponseCodeIs(404);
+    }
+
+    public function getAllCategories(ApiTester $I): void
+    {
+        $I->sendGet('URL_CATEGORIES');
+
+        $I->seeResponseCodeIs(200);
     }
 
     /**
      * @throws Exception
      */
-    public function updateCategory(ApiTester $I): void
+    public function updatingCategoryWithoutIdAndCheckingTheValidityOfTheDataType(ApiTester $I): void
     {
         $I->sendPut('URL_CATEGORIES/' . $this->createdCategory, json_encode([
             'title' => 'Not Dostoevsky',
             'slug' => 'Not FQ'
         ]));
+
+        $response = $I->grabResponse();
+        $data = json_decode($response, true);
+        $id = $data['id'];
+        $title = $data['title'];
+        $slug = $data['slug'];
+
+        $I->assertIsInt($id);
+        $I->assertIsString($title);
+        $I->assertIsString($slug);
 
         $I->seeResponseCodeIs(200);
     }
@@ -71,10 +99,11 @@ class CreateUserCest
         $I->seeResponseCodeIs(404);
     }
 
+
     /**
      * @throws Exception
      */
-    public function deleteCategoryById(ApiTester $I): void
+    public function removeCategoryById(ApiTester $I): void
     {
         $I->sendDelete('URL_CATEGORIES/' . $this->createdCategory);
 
@@ -88,7 +117,7 @@ class CreateUserCest
         $I->seeResponseCodeIs(404);
     }
 
-    public function deleteCategoryInvalidId(ApiTester $I): void
+    public function removeCategoryInvalidId(ApiTester $I): void
     {
         $I->sendDelete('URL_CATEGORIES/Pushkin');
 

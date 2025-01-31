@@ -25,6 +25,5 @@
 8. Находясь в каталоге example-project устанавливаем зависимостей composer require symfony/serializer-pack
 9. Запускаем локальный-сервер командой symfony serve
 10. Заходим в браузер и вводим в адресную-строку http://localhost:8000/categories
-11. Переходим в каталог PetProject
-12. Запускаем автотесты командой php vendor/bin/codecept run Api --debug
-13. Проверяем изменение в БД (book_category), а так же можно проверить на локальном сервере
+11. Запускаем автотесты командой php vendor/bin/codecept run Api --debug
+12. Проверяем изменение в консоли

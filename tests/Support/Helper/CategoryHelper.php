@@ -5,7 +5,7 @@ namespace Support\Helper;
 use Exception;
 use Tests\Support\ApiTester;
 
-class MethodsHelper
+class CategoryHelper
 {
     public int $createdCategory;
 
