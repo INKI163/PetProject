@@ -15,7 +15,7 @@ class CategoryHelper
     public function createNewCategory(ApiTester $I): int
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('URL_CATEGORIES',json_encode([
+        $I->sendPost(UrlHelper::CATEGORIES, json_encode([
             'id' => 55,
             'title' => 'Pushkin',
             'slug' => 'FQ'

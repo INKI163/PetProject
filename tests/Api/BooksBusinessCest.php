@@ -28,7 +28,7 @@ class BooksBusinessCest
 
     public function _after(ApiTester $I): void
     {
-        $I->sendDelete('URL_CATEGORIES/' . $this->createdCategory);
+        $I->sendDelete(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
     }
 
     /**
@@ -36,7 +36,7 @@ class BooksBusinessCest
      */
     public function changeData(ApiTester $I): void
     {
-        $I->sendPut('URL_CATEGORIES/' . $this->createdCategory, json_encode([
+        $I->sendPut(UrlHelper::CATEGORIES . '/' . $this->createdCategory, json_encode([
             'title' => 'Not Dostoevsky',
             'slug' => 'Not FQ'
         ]));
@@ -47,7 +47,7 @@ class BooksBusinessCest
             'slug' => 'Not FQ',
         ]);
 
-        $I->sendGet('URL_CATEGORIES/' . $this->createdCategory);
+        $I->sendGet(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
 
         $response = $I->grabResponse();
         $data = json_decode($response, true);
@@ -57,20 +57,20 @@ class BooksBusinessCest
 
     public function removeCategoryById(ApiTester $I): void
     {
-        $I->sendPost('URL_CATEGORIES', json_encode([
+        $I->sendPost(UrlHelper::CATEGORIES, json_encode([
             'id' => 56,
             'title' => 'Lermontov',
             'slug' => 'FQ'
         ]));
 
-        $I->sendGet('URL_CATEGORIES/56');
+        $I->sendGet(UrlHelper::CATEGORIES . '/56');
         $I->seeResponseIsJson();
 
-        $I->sendDelete('URL_CATEGORIES/56');
+        $I->sendDelete(UrlHelper::CATEGORIES . '/56');
 
         $I->seeResponseContainsJson(['message' => 'Category deleted successfully']);
 
-        $I->sendGet('URL_CATEGORIES');
+        $I->sendGet(UrlHelper::CATEGORIES);
 
         $response = $I->grabResponse();
         $data = json_decode($response,true);

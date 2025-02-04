@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use InvalidArgumentException;
-use Support\Helper\UrlHelper;
+use App\Support\UrlHelper;
 class BookCategoryController extends AbstractController
 {
     private BookCategoryService $bookCategoryService;
@@ -21,7 +21,7 @@ class BookCategoryController extends AbstractController
         $this->bookCategoryService = $bookCategoryService;
     }
 
-    #[Route('URL_CATEGORIES/{id}', methods: ['GET'])]
+    #[Route(UrlHelper::CATEGORIES . '/{id}', methods: ['GET'])]
     public function getCategory(int $id): JsonResponse
     {
         $category = $this->bookCategoryService->getCategoriesById($id);
@@ -33,20 +33,7 @@ class BookCategoryController extends AbstractController
         return $this->json($category);
     }
 
-    #[Route('URL_CATEGORIES/{id}', methods: ['GET'])]
-    public function getCategoriesById(string $id): JsonResponse
-    {
-        if (!ctype_digit($id)) {
-
-            return $this->json(['error' => 'Invalid ID format: ID must be numeric'], 400);
-
-        }
-        $categories = $this->bookCategoryService->getCategories();
-
-        return $this->json($categories);
-    }
-
-    #[Route('URL_CATEGORIES', methods: ['GET'])]
+    #[Route(UrlHelper::CATEGORIES, methods: ['GET'])]
     public function getCategories(): JsonResponse
     {
         $categories = $this->bookCategoryService->getCategories();
@@ -54,7 +41,7 @@ class BookCategoryController extends AbstractController
         return $this->json($categories);
     }
 
-    #[Route('URL_CATEGORIES/{id}', methods: ['PUT'])]
+    #[Route(UrlHelper::CATEGORIES . '/{id}', methods: ['PUT'])]
     public function updateCategory(int $id, Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -69,7 +56,7 @@ class BookCategoryController extends AbstractController
         return $this->json($category);
     }
 
-    #[Route('URL_CATEGORIES/{id}', methods: ['DELETE'])]
+    #[Route(UrlHelper::CATEGORIES . '/{id}', methods: ['DELETE'])]
     public function deleteCategory(string $id): JsonResponse
     {
         if (!ctype_digit($id)) {
@@ -91,7 +78,7 @@ class BookCategoryController extends AbstractController
         return $this->json(['message' => 'Category deleted successfully']);
     }
 
-    #[Route('URL_CATEGORIES', methods: ['POST'])]
+    #[Route(UrlHelper::CATEGORIES, methods: ['POST'])]
     public function createNewCategory(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);

@@ -6,6 +6,7 @@ use App\Service\BookCategoryService;
 use Codeception\Template\Api;
 use Exception;
 use Tests\Support\ApiTester;
+require_once __DIR__ . '/../Support/Helper/UrlHelper.php';
 use Support\Helper\UrlHelper;
 require_once __DIR__ . '/../Support/Helper/CategoryHelper.php';
 use Support\Helper\CategoryHelper;
@@ -13,7 +14,7 @@ use function PHPUnit\Framework\assertIsArray;
 
 class BooksContractCest
 {
-    private int $createdCategory;
+    private ?int $createdCategory = null;
     private CategoryHelper $categoryHelper;
 
     /**
@@ -28,7 +29,7 @@ class BooksContractCest
 
     public function _after(ApiTester $I): void
     {
-        $I->sendDelete('URL_CATEGORIES/' . $this->createdCategory);
+        $I->sendDelete(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
     }
 
     /**
@@ -36,7 +37,7 @@ class BooksContractCest
      */
     public function checkCreateNewCategory(ApiTester $I): void
     {
-        $I->sendGet('URL_CATEGORIES/' . $this->createdCategory);
+        $I->sendGet(UrlHelper::CATEGORIES. '/' . $this->createdCategory);
 
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -44,9 +45,9 @@ class BooksContractCest
 
     public function getCategoryNotFoundId(ApiTester $I): void
     {
-        $I->sendGet('URL_CATEGORIES/Pushkin');
+        $I->sendGet(UrlHelper::CATEGORIES . '/6785');
 
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(404);
     }
 
     public function getCategoriesByNonExistentUrl(ApiTester $I): void
@@ -58,7 +59,7 @@ class BooksContractCest
 
     public function getAllCategories(ApiTester $I): void
     {
-        $I->sendGet('URL_CATEGORIES');
+        $I->sendGet(UrlHelper::CATEGORIES);
 
         $I->seeResponseCodeIs(200);
     }
@@ -68,7 +69,7 @@ class BooksContractCest
      */
     public function updatingCategoryWithoutIdAndCheckingTheValidityOfTheDataType(ApiTester $I): void
     {
-        $I->sendPut('URL_CATEGORIES/' . $this->createdCategory, json_encode([
+        $I->sendPut(UrlHelper::CATEGORIES . '/' . $this->createdCategory, json_encode([
             'title' => 'Not Dostoevsky',
             'slug' => 'Not FQ'
         ]));
@@ -105,7 +106,7 @@ class BooksContractCest
      */
     public function removeCategoryById(ApiTester $I): void
     {
-        $I->sendDelete('URL_CATEGORIES/' . $this->createdCategory);
+        $I->sendDelete(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
 
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['message' => 'Category deleted successfully']);
@@ -113,13 +114,13 @@ class BooksContractCest
 
     public function removingCategoryNonExistentId(ApiTester $I): void
     {
-        $I->sendDelete('URL_CATEGORIES/999');
+        $I->sendDelete(UrlHelper::CATEGORIES . '/999');
         $I->seeResponseCodeIs(404);
     }
 
     public function removeCategoryInvalidId(ApiTester $I): void
     {
-        $I->sendDelete('URL_CATEGORIES/Pushkin');
+        $I->sendDelete(UrlHelper::CATEGORIES . '/Pushkin');
 
         $I->seeResponseCodeIs(400);
         $I->seeResponseContainsJson(['error' => 'Invalid ID format: ID must be numeric']);
