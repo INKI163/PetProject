@@ -37,8 +37,9 @@ class CategoryHelper
         return $this->createdCategory;
     }
 
-    public function deleteCategory(ApiTester $I, int $categoryId): void
+    public function deleteCategory(int $categoryId): void
     {
+        $I = $this->I;
         $I->sendDelete(UrlHelper::CATEGORIES . '/' . $categoryId);
     }
 }

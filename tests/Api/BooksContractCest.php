@@ -25,9 +25,9 @@ class BooksContractCest
         $this->createdCategory =$categoryHelper->createNewCategory();
     }
 
-    public function _after(ApiTester $I, CategoryHelper $categoryHelper): void
+    public function _after(CategoryHelper $categoryHelper): void
     {
-        $categoryHelper->deleteCategory($I, $this->createdCategory);
+        $categoryHelper->deleteCategory($this->createdCategory);
     }
 
     /**
