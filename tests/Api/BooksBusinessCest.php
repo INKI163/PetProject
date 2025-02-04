@@ -9,26 +9,22 @@ use Tests\Support\ApiTester;
 use Support\Helper\UrlHelper;
 require_once __DIR__ . '/../Support/Helper/CategoryHelper.php';
 use Support\Helper\CategoryHelper;
-use function PHPUnit\Framework\assertIsArray;
 
 class BooksBusinessCest
 {
     private int $createdCategory;
-    private CategoryHelper $categoryHelper;
 
     /**
      * @throws Exception
      */
-    public function _before(ApiTester $I): void
+    public function _before(CategoryHelper $categoryHelper): void
     {
-        $this->categoryHelper = new CategoryHelper();
-
-        $this->createdCategory = $this->categoryHelper->createNewCategory($I);
+        $this->createdCategory =$categoryHelper->createNewCategory();
     }
 
-    public function _after(ApiTester $I): void
+    public function _after(ApiTester $I, CategoryHelper $categoryHelper): void
     {
-        $I->sendDelete(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
+        $categoryHelper->deleteCategory($I, $this->createdCategory);
     }
 
     /**

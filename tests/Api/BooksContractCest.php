@@ -8,32 +8,26 @@ use Exception;
 use Tests\Support\ApiTester;
 require_once __DIR__ . '/../Support/Helper/UrlHelper.php';
 require_once __DIR__ . '/../Support/Helper/CategoryHelper.php';
-require_once __DIR__ . '/../Support/Helper/DeleteCategoryHelper.php';
 
-use Support\Helper\{DeleteCategoryHelper, UrlHelper, CategoryHelper};
+use Support\Helper\{UrlHelper, CategoryHelper};
 
 
 class BooksContractCest
 {
     private ?int $createdCategory = null;
-    private CategoryHelper $categoryHelper;
-    private DeleteCategoryHelper $deleteCategoryHelper;
+
 
     /**
      * @throws Exception
      */
-    public function _before(ApiTester $I): void
+    public function _before(CategoryHelper $categoryHelper): void
     {
-        $this->categoryHelper = new CategoryHelper();
-
-        $this->createdCategory = $this->categoryHelper->createNewCategory($I);
+        $this->createdCategory =$categoryHelper->createNewCategory();
     }
 
-    public function _after(ApiTester $I): void
+    public function _after(ApiTester $I, CategoryHelper $categoryHelper): void
     {
-        $this->deleteCategoryHelper = new DeleteCategoryHelper();
-
-        $this->deleteCategoryHelper->deleteCategory($I, $this->createdCategory);
+        $categoryHelper->deleteCategory($I, $this->createdCategory);
     }
 
     /**
