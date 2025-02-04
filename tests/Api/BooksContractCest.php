@@ -7,15 +7,17 @@ use Codeception\Template\Api;
 use Exception;
 use Tests\Support\ApiTester;
 require_once __DIR__ . '/../Support/Helper/UrlHelper.php';
-use Support\Helper\UrlHelper;
 require_once __DIR__ . '/../Support/Helper/CategoryHelper.php';
-use Support\Helper\CategoryHelper;
-use function PHPUnit\Framework\assertIsArray;
+require_once __DIR__ . '/../Support/Helper/DeleteCategoryHelper.php';
+
+use Support\Helper\{DeleteCategoryHelper, UrlHelper, CategoryHelper};
+
 
 class BooksContractCest
 {
     private ?int $createdCategory = null;
     private CategoryHelper $categoryHelper;
+    private DeleteCategoryHelper $deleteCategoryHelper;
 
     /**
      * @throws Exception
@@ -29,7 +31,9 @@ class BooksContractCest
 
     public function _after(ApiTester $I): void
     {
-        $I->sendDelete(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
+        $this->deleteCategoryHelper = new DeleteCategoryHelper();
+
+        $this->deleteCategoryHelper->deleteCategory($I, $this->createdCategory);
     }
 
     /**
