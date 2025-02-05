@@ -27,3 +27,5 @@
 10. Заходим в браузер и вводим в адресную-строку http://localhost:8000/categories
 11. Запускаем автотесты командой php vendor/bin/codecept run Api --debug
 12. Проверяем изменение в консоли
+
+Просмотр баг-репортов: https://docs.google.com/spreadsheets/d/1YPPhutQXyhp60vzyi39r8-e4X5r1ke2o7by7F_AMl9s/edit?usp=sharing

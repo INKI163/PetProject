@@ -2,16 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\BookCategory;
-use OpenApi\Annotations as OA;
 use App\Service\BookCategoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use InvalidArgumentException;
 use App\Support\UrlHelper;
+
 class BookCategoryController extends AbstractController
 {
     private BookCategoryService $bookCategoryService;

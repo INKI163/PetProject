@@ -6,9 +6,7 @@ use App\Entity\BookCategory;
 use App\Model\BookCategoryListItem;
 use App\Model\BookCategoryListResponse;
 use App\Repository\BookCategoryRepository;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
-use InvalidArgumentException;
 
 class BookCategoryService
 {
@@ -96,6 +94,7 @@ class BookCategoryService
 
         return true;
     }
+
     public function createNewCategory(int $id, string $title, string $slug): BookCategory
     {
         $category = new BookCategory();

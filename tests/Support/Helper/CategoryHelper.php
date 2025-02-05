@@ -7,7 +7,7 @@ use Tests\Support\ApiTester;
 
 class CategoryHelper
 {
-    public ?int $createdCategory = null;
+    private ?int $createdCategory = null;
 
     private ApiTester $I;
 
