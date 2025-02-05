@@ -10,7 +10,7 @@
    export DATABASE_PASSWORD=12345
    export DATABASE_PORT=5432
    export DATABASE_SERVER=postgres://127.0.0.1:5432
-   export DATABASE_URL=postgres://postgres:12345@127.0.0.1:5432/postgres?sslmode=disable&charset=utf8
+   export DATABASE_URL=postgres://postgres:12345@127.0.0.1:5432/postgres
    export DATABASE_USER=postgres
    export DATABASE_USERNAME=postgres
    export PGDATABASE=postgres
