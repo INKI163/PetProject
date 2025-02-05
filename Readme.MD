@@ -1,10 +1,10 @@
 Чтобы запустить проект, нужно:
 1. Запустить Docker
 2. В терминале перейти в директорию example-project и запустить контейнер командой docker start postgres
-4. Удалить старую миграцию composer remove doctrine/doctrine-migrations-bundle
-5. Установить миграцию composer require doctrine/doctrine-migrations-bundle
-6. Выполнить две команда для миграции  1.(php bin/console make:migration) 2.(php bin/console doctrine:migrations:migrate)
-7. Находясь в каталоге example-project устанавливаем зависимостей composer require symfony/serializer-pack
+4. Удалить библиотеку Doctrine composer remove doctrine/doctrine-migrations-bundle
+5. Установить библиотеку Doctrine composer require doctrine/doctrine-migrations-bundle
+6. Выполнить команду для создания миграции php bin/console make:migration Запустить все миграции php bin/console doctrine:migrations:migrate
+7. Находясь в каталоге example-project устанавливаем зависимости composer require symfony/serializer-pack
 8. Запускаем локальный-сервер командой symfony serve
 9. Заходим в браузер и вводим в адресную-строку http://localhost:8000/categories
 10. Запускаем автотесты командой php vendor/bin/codecept run Api --debug
