@@ -32,21 +32,21 @@ class BusinessChangeCategoryCest
      */
     public function changeDataTest(ApiTester $I): void
     {
+        $expectedData = [
+            'id' => 55,
+            'title' => 'Not Dostoevsky',
+            'slug' => 'Not FQ',
+        ];
+
         $I->sendPut(UrlHelper::CATEGORIES . '/' . $this->createdCategory, json_encode([
             'title' => 'Not Dostoevsky',
             'slug' => 'Not FQ'
         ]));
 
-        $I->seeResponseContainsJson([
-            'id' => 55,
-            'title' => 'Not Dostoevsky',
-            'slug' => 'Not FQ',
-        ]);
+        $I->seeResponseContainsJson($expectedData);
 
         $I->sendGet(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
 
-        $response = $I->grabResponse();
-        $data = json_decode($response, true);
-        $I->seeResponseContainsJson($data);
+        $I->seeResponseContainsJson($expectedData);
     }
 }

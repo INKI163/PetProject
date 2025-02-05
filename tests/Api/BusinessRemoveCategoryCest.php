@@ -29,14 +29,23 @@ class BusinessRemoveCategoryCest
 
     public function removeCategoryByIdTest(ApiTester $I): void
     {
+        $expectedData = [
+            'id' => 56,
+            'title' => 'Lermontov',
+            'slug' => 'FQ',
+        ];
+
         $I->sendPost(UrlHelper::CATEGORIES, json_encode([
             'id' => 56,
             'title' => 'Lermontov',
             'slug' => 'FQ'
         ]));
 
+        $I->seeResponseContainsJson($expectedData);
+
         $I->sendGet(UrlHelper::CATEGORIES . '/56');
-        $I->seeResponseIsJson();
+
+        $I->seeResponseContainsJson($expectedData);
 
         $I->sendDelete(UrlHelper::CATEGORIES . '/56');
 
@@ -44,8 +53,7 @@ class BusinessRemoveCategoryCest
 
         $I->sendGet(UrlHelper::CATEGORIES);
 
-        $response = $I->grabResponse();
-        $data = json_decode($response, true);
-        $I->seeResponseContainsJson($data);
+        $I->seeResponseIsJson();
+
     }
 }
