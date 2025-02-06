@@ -27,14 +27,20 @@ class BusinessGetCategoryCest
         $categoryHelper->deleteCategory($this->createdCategory);
     }
 
-    public function getAllCategoriesTest(ApiTester $I): void
+    public function getCategoriesByIdTest(ApiTester $I): void
     {
-        $I->sendGet(UrlHelper::CATEGORIES);
+        $expectedData = [
+            'id' => 55,
+            'title' => 'Pushkin',
+            'slug' => 'FQ'
+        ];
+
+        $I->seeResponseContainsJson($expectedData);
+
+        $I->sendGet(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
 
         $I->seeResponseCodeIs(200);
 
-        $response = $I->grabResponse();
-        $data = json_decode($response, true);
-        $I->seeResponseContainsJson($data);
+        $I->seeResponseContainsJson($expectedData);
     }
 }
