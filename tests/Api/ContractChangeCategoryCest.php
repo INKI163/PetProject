@@ -7,8 +7,9 @@ use Tests\Support\ApiTester;
 
 require_once __DIR__ . '/../Support/Helper/UrlHelper.php';
 require_once __DIR__ . '/../Support/Helper/CategoryHelper.php';
+require_once __DIR__ . '/../Support/Helper/HttpCodeHelper.php';
 
-use Support\Helper\{UrlHelper, CategoryHelper};
+use Support\Helper\{UrlHelper, CategoryHelper, HttpCodeHelper};
 
 class ContractChangeCategoryCest
 {
@@ -37,6 +38,8 @@ class ContractChangeCategoryCest
             'slug' => 'Not FQ'
         ]));
 
+        $I->seeResponseCodeIs(HttpCodeHelper::OK);
+
         $response = $I->grabResponse();
         $data = json_decode($response, true);
         $id = $data['id'];
@@ -47,7 +50,7 @@ class ContractChangeCategoryCest
         $I->assertIsString($title);
         $I->assertIsString($slug);
 
-        $I->seeResponseCodeIs(200);
+        $I->seeResponseCodeIs(HttpCodeHelper::OK);
     }
 
     /**
@@ -55,21 +58,25 @@ class ContractChangeCategoryCest
      */
     public function updateCategoryWithNotFoundCategoriesByIDTest(ApiTester $I): void
     {
-        $I->sendPut(UrlHelper::CATEGORIES . '/5675', json_encode([
+        $notExistentId = '5675';
+
+        $I->sendPut(UrlHelper::CATEGORIES . '/' . $notExistentId, json_encode([
             'title' => 'Not Dostoevsky',
             'slug' => 'Not FQ'
         ]));
 
-        $I->seeResponseCodeIs(404);
+        $I->seeResponseCodeIs(HttpCodeHelper::PAGE_NOT_FOUND);
     }
 
-    public function updateCategoryWithNotFoundCategoriesDataTypeTest(ApiTester $I): void
+    public function updateCategoryWithInvalidQueryDataTest(ApiTester $I): void
     {
-        $I->sendPut(UrlHelper::CATEGORIES . '/Lermontov', json_encode([
+        $invalidQuery = 'Lermontov';
+
+        $I->sendPut(UrlHelper::CATEGORIES . '/' . $invalidQuery, json_encode([
             'title' => 'Not Dostoevsky',
             'slug' => 'Not FQ'
         ]));
 
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(HttpCodeHelper::BAD_REQUEST);
     }
 }

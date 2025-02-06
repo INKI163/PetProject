@@ -7,8 +7,9 @@ use Tests\Support\ApiTester;
 
 require_once __DIR__ . '/../Support/Helper/UrlHelper.php';
 require_once __DIR__ . '/../Support/Helper/CategoryHelper.php';
+require_once __DIR__ . '/../Support/Helper/HttpCodeHelper.php';
 
-use Support\Helper\{UrlHelper, CategoryHelper};
+use Support\Helper\{HttpCodeHelper, UrlHelper, CategoryHelper};
 
 class ContractGetCategoryCest
 {
@@ -34,28 +35,31 @@ class ContractGetCategoryCest
     {
         $I->sendGet(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
 
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
+        $I->seeResponseCodeIs(HttpCodeHelper::OK);
     }
 
-    public function getCategoryNotFoundIdTest(ApiTester $I): void
+    public function getCategoryNotExistentIdTest(ApiTester $I): void
     {
-        $I->sendGet(UrlHelper::CATEGORIES . '/6785');
+        $notExistentId = '6785';
 
-        $I->seeResponseCodeIs(404);
+        $I->sendGet(UrlHelper::CATEGORIES . '/' . $notExistentId);
+
+        $I->seeResponseCodeIs(HttpCodeHelper::PAGE_NOT_FOUND);
     }
 
     public function getCategoriesByNonExistentUrlTest(ApiTester $I): void
     {
-        $I->sendGet(UrlHelper::CATEGORIES . '/Lermontov');
+        $invalidId = 'Lermontov';
 
-        $I->seeResponseCodeIs(400);
+        $I->sendGet(UrlHelper::CATEGORIES . '/' . $invalidId);
+
+        $I->seeResponseCodeIs(HttpCodeHelper::BAD_REQUEST);
     }
 
     public function getAllCategoriesTest(ApiTester $I): void
     {
         $I->sendGet(UrlHelper::CATEGORIES);
 
-        $I->seeResponseCodeIs(200);
+        $I->seeResponseCodeIs(HttpCodeHelper::OK);
     }
 }

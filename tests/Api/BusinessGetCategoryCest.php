@@ -35,11 +35,7 @@ class BusinessGetCategoryCest
             'slug' => 'FQ'
         ];
 
-        $I->seeResponseContainsJson($expectedData);
-
         $I->sendGet(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
-
-        $I->seeResponseCodeIs(200);
 
         $I->seeResponseContainsJson($expectedData);
     }

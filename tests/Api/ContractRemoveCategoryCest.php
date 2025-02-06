@@ -7,8 +7,9 @@ use Tests\Support\ApiTester;
 
 require_once __DIR__ . '/../Support/Helper/UrlHelper.php';
 require_once __DIR__ . '/../Support/Helper/CategoryHelper.php';
+require_once __DIR__ . '/../Support/Helper/HttpCodeHelper.php';
 
-use Support\Helper\{UrlHelper, CategoryHelper};
+use Support\Helper\{HttpCodeHelper, UrlHelper, CategoryHelper};
 
 class ContractRemoveCategoryCest
 {
@@ -34,21 +35,24 @@ class ContractRemoveCategoryCest
     {
         $I->sendDelete(UrlHelper::CATEGORIES . '/' . $this->createdCategory);
 
-        $I->seeResponseCodeIs(200);
+        $I->seeResponseCodeIs(HttpCodeHelper::OK);
         $I->seeResponseContainsJson(['message' => 'Category deleted successfully']);
     }
 
     public function removeCategoryNonExistentIdTest(ApiTester $I): void
     {
-        $I->sendDelete(UrlHelper::CATEGORIES . '/999');
-        $I->seeResponseCodeIs(404);
+        $notExistentId = '999';
+
+        $I->sendDelete(UrlHelper::CATEGORIES . '/' . $notExistentId);
+        $I->seeResponseCodeIs(HttpCodeHelper::PAGE_NOT_FOUND);
     }
 
     public function removeCategoryInvalidIdTest(ApiTester $I): void
     {
-        $I->sendDelete(UrlHelper::CATEGORIES . '/Pushkin');
+        $invalidId = 'Pushkin';
+        $I->sendDelete(UrlHelper::CATEGORIES . '/' . $invalidId);
 
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(HttpCodeHelper::BAD_REQUEST);
         $I->seeResponseContainsJson(['error' => 'Invalid ID format: ID must be numeric']);
     }
 }
