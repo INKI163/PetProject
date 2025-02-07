@@ -1,6 +1,8 @@
+Проект представляет из себя API для записи книг в библиотеке, стек - Symfony и автотестирование данного API, стек - codeception.
+
 Чтобы запустить проект, нужно:
 1. Запустить Docker
-2. В терминале перейти в директорию example-project и запустить контейнер командой docker compose up
+2. В терминале перейти в директорию example-project и запустить контейнер командой docker-compose up
 3. Удалить библиотеку Doctrine composer remove doctrine/doctrine-migrations-bundle
 4. Установить библиотеку Doctrine composer require doctrine/doctrine-migrations-bundle
 5. Выполнить команду для создания миграции php bin/console make:migration Запустить все миграции php bin/console doctrine:migrations:migrate
