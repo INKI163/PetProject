@@ -7,11 +7,11 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "doctrine/dbal": "^3.9.3",
-        "doctrine/doctrine-bundle": "^2.13.1",
-        "doctrine/doctrine-migrations-bundle": "^3.4",
-        "doctrine/orm": "^3.3.1",
-        "nelmio/api-doc-bundle": "^4.33.4",
+        "doctrine/dbal": "^3.9.4",
+        "doctrine/doctrine-bundle": "^2.13.2",
+        "doctrine/doctrine-migrations-bundle": "^3.4.1",
+        "doctrine/orm": "^3.3.2",
+        "nelmio/api-doc-bundle": "^4.36.1",
         "phpdocumentor/reflection-docblock": "^5.6.1",
         "phpstan/phpdoc-parser": "^2.0",
         "symfony/asset": "7.2.*",
@@ -80,8 +80,13 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^4.0",
-        "friendsofphp/php-cs-fixer": "^3.65",
-        "phpstan/phpstan": "^2.0.4",
-        "symfony/maker-bundle": "^1.61"
+        "friendsofphp/php-cs-fixer": "^3.68.5",
+        "phpstan/phpstan": "^2.1.2",
+        "codeception/codeception": "^5.1.2",
+        "codeception/module-phpbrowser": ">=3.0.1",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-rest": "^3.4",
+        "symfony/maker-bundle": "^1.62.1",
+        "codeception/module-symfony": "^3.5"
     }
 }
