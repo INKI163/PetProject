@@ -2,6 +2,7 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+<<<<<<< HEAD
       <sourceFolder url="file://$MODULE_DIR$/example-project/tests" isTestSource="true" packagePrefix="App\Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/example-project/src" isTestSource="false" packagePrefix="App\" />
@@ -103,6 +104,11 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/routing" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-exporter" />
+=======
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
+>>>>>>> 3bf418e (first)
       <excludeFolder url="file://$MODULE_DIR$/example-symfony/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/example-symfony/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/example-symfony/vendor/doctrine/collections" />
@@ -307,6 +313,7 @@
       <excludeFolder url="file://$MODULE_DIR$/example-project/vendor/symfony/serializer" />
       <excludeFolder url="file://$MODULE_DIR$/example-project/vendor/symfony/type-info" />
       <excludeFolder url="file://$MODULE_DIR$/example-project/vendor/webmozart/assert" />
+<<<<<<< HEAD
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
@@ -322,6 +329,10 @@
       <excludeFolder url="file://$MODULE_DIR$/example-project/vendor/doctrine/data-fixtures" />
       <excludeFolder url="file://$MODULE_DIR$/example-project/vendor/doctrine/doctrine-fixtures-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/codeception/module-symfony" />
+=======
+      <excludeFolder url="file://$MODULE_DIR$/example-project/vendor/doctrine/data-fixtures" />
+      <excludeFolder url="file://$MODULE_DIR$/example-project/vendor/doctrine/doctrine-fixtures-bundle" />
+>>>>>>> 3bf418e (first)
       <excludeFolder url="file://$MODULE_DIR$/example-project/vendor/nelmio/api-doc-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/example-project/vendor/symfony/asset" />
       <excludeFolder url="file://$MODULE_DIR$/example-project/vendor/symfony/translation-contracts" />

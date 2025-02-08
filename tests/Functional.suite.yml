@@ -1,0 +1,10 @@
+actor: FunctionalTester
+modules:
+    enabled:
+        - Symfony:
+              app_path: 'src'
+              environment: 'test'
+        - REST:
+              url: http://localhost:8000
+        - Doctrine2:
+              depends: Symfony
