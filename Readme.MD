@@ -2,7 +2,7 @@
 
 Чтобы запустить проект, нужно:
 1. Запустить Docker
-2. В терминале перейти в директорию example-project и запустить контейнер командой docker-compose up
+2. Запустить контейнер командой docker-compose up
 3. Войти в контейнер docker exec -it php sh
 4. Выполнить composer update
 5. Выполнить команду для очистки БД php bin/console doctrine:schema:drop --force
